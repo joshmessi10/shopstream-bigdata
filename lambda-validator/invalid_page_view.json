@@ -1,0 +1,10 @@
+{
+  "event_type": "page_view",
+  "user_id": "u_test",
+  "session_id": "sess_1",
+  "timestamp": "2022-01-01T12:00:00Z",
+  "page_type": "home",
+  "time_on_page_seconds": 30,
+  "device_type": "smartwatch",
+  "country": "Argentina"
+}

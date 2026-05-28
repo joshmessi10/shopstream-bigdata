@@ -1,0 +1,8 @@
+{
+  "event_type": "cart_event",
+  "user_id": "u_test2",
+  "session_id": "sess_2",
+  "timestamp": "2022-01-02T15:30:00Z",
+  "product_id": "prod_001",
+  "action": "add_to_wishlist"
+}

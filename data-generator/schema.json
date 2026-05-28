@@ -1,0 +1,203 @@
+{
+  "database_name": "ShopStream",
+  "description": "Modelo de datos analítico con 5 entidades interrelacionadas",
+  "entities": {
+    "users": {
+      "description": "Usuarios de la plataforma",
+      "primary_key": "user_id",
+      "fields": {
+        "user_id": {
+          "type": "string",
+          "example": "johndoe_1234"
+        },
+        "country": {
+          "type": "string",
+          "example": "Mexico"
+        }
+      }
+    },
+    "products": {
+      "description": "Catálogo de productos",
+      "primary_key": "product_id",
+      "fields": {
+        "product_id": {
+          "type": "string",
+          "example": "prod_1a2b3c4d"
+        },
+        "product_name": {
+          "type": "string",
+          "example": "Ergonomic Office Chair"
+        },
+        "category": {
+          "type": "string",
+          "example": "Electronics"
+        },
+        "price": {
+          "type": "float",
+          "example": 299.99
+        }
+      }
+    },
+    "sessions": {
+      "description": "Sesiones de navegación de los usuarios",
+      "primary_key": "session_id",
+      "foreign_keys": [
+        "user_id"
+      ],
+      "fields": {
+        "session_id": {
+          "type": "string",
+          "example": "sess_8f9e0a1b"
+        },
+        "user_id": {
+          "type": "string",
+          "example": "johndoe_1234"
+        },
+        "start_time": {
+          "type": "timestamp",
+          "example": "2026-05-21T10:00:00Z"
+        },
+        "end_time": {
+          "type": "timestamp",
+          "example": "2026-05-21T10:15:30Z"
+        }
+      }
+    },
+    "transactions": {
+      "description": "Compras realizadas",
+      "primary_key": "transaction_id",
+      "foreign_keys": [
+        "user_id",
+        "product_id"
+      ],
+      "fields": {
+        "transaction_id": {
+          "type": "string",
+          "example": "txn_5x6y7z8w"
+        },
+        "user_id": {
+          "type": "string",
+          "example": "johndoe_1234"
+        },
+        "product_id": {
+          "type": "string",
+          "example": "prod_1a2b3c4d"
+        },
+        "timestamp": {
+          "type": "timestamp",
+          "example": "2026-05-21T10:14:00Z"
+        },
+        "status": {
+          "type": "string",
+          "example": "completed"
+        }
+      }
+    },
+    "events": {
+      "description": "Eventos de comportamiento web almacenados en formato RAW como registros independientes",
+      "primary_key": null,
+      "partition_keys": [
+        "year",
+        "month",
+        "day",
+        "event_type"
+      ],
+      "foreign_keys": [
+        "user_id",
+        "session_id",
+        "product_id"
+      ],
+      "storage": "raw_event_logs",
+      "format": "jsonl",
+      "base_fields": {
+        "event_type": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "timestamp"
+        }
+      },
+      "event_specific_fields": {
+        "page_view": {
+          "page_url": {
+            "type": "string"
+          },
+          "page_type": {
+            "type": "string"
+          },
+          "time_on_page_seconds": {
+            "type": "integer"
+          },
+          "referrer": {
+            "type": "string"
+          },
+          "device_type": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          }
+        },
+        "click": {
+          "element_id": {
+            "type": "string"
+          },
+          "element_type": {
+            "type": "string"
+          },
+          "page_url": {
+            "type": "string"
+          },
+          "x_position": {
+            "type": "integer"
+          },
+          "y_position": {
+            "type": "integer"
+          }
+        },
+        "search": {
+          "query": {
+            "type": "string"
+          },
+          "results_count": {
+            "type": "integer"
+          }
+        },
+        "product_view": {
+          "product_id": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "price": {
+            "type": "float"
+          },
+          "time_on_page_seconds": {
+            "type": "integer"
+          }
+        },
+        "cart_event": {
+          "product_id": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
